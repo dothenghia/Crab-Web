@@ -1,0 +1,105 @@
+
+#login-screen {
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--primary-color-1);
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    position: relative;
+}
+
+/* ====== Login Form ====== */
+.login-form-container {
+    z-index: 1;
+    width: 40%;
+    margin-right: 10%;
+    padding: 2rem 4rem 5rem 4rem;
+    background-color: #fff;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
+}
+.login-form-container h1 {
+    text-align: center;
+    color: var(--primary-color-1);
+    font-size: 2.2rem;
+}
+.login-form label {
+    display: block;
+    color: var(--text-color);
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+.login-form input {
+    display: block;
+    width: 100%;
+    border: 0.1rem solid var(--border-color);
+    font-size: 1.2rem;
+    padding: 0.5rem 0.7rem;
+    margin-bottom: 1.3rem;
+    border-radius: 0.325rem;
+}
+.login-form input:focus {
+    outline: none;
+    border-color: var(--primary-color-1);
+    color: var(--primary-color-1);
+}
+.login-form button {
+    display: block;
+    width: 100%;
+    background-color: var(--primary-color-1);
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-top: 3.4rem;
+    padding: 0.6rem 0.7rem;
+    border: none;
+    border-radius: 0.325rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.login-form button:hover {
+    background-color: var(--primary-color-2);
+}
+.login-form a {
+    float: right;
+    color: var(--primary-color-1);
+    font-size: 1.1rem;
+    margin-top: -0.6rem;
+    text-decoration: none;
+}
+
+
+/* ====== Login Illustration ====== */
+.login-illustration {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-illustration img {
+    width: 100%;
+}
+
+/* ====== Login Logo ====== */
+.login-logo {
+    width: 50%;
+    text-align: center;
+    align-self: flex-start;
+    margin-top: 10%;
+}
+.login-logo img {
+    width: 20%;
+}
+.login-logo h2 {
+    color: white;
+    font-size: 1.5rem;
+    margin-top: 1rem;
+    font-weight: 500;
+}

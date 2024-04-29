@@ -1,0 +1,28 @@
+
+@font-face { font-family: 'SanomatSans'; src: url('./fonts/Sanomat\ SansLight.otf') format('opentype'); font-weight: 300; }
+@font-face { font-family: 'SanomatSans'; src: url('./fonts/Sanomat\ SansRegular.otf') format('opentype'); font-weight: normal; }
+@font-face { font-family: 'SanomatSans'; src: url('./fonts/Sanomat\ SansMedium.otf') format('opentype'); font-weight: 500; }
+@font-face { font-family: 'SanomatSans'; src: url('./fonts/Sanomat\ SansBold.otf') format('opentype'); font-weight: 700; }
+@font-face { font-family: 'SanomatSans'; src: url('./fonts/Sanomat\ SansXBold.otf') format('opentype'); font-weight: bold; }
+
+:root {
+    --background-color: #f9f9f9;
+
+    --primary-color-1 : #00B14F;
+    --primary-color-2 : #00814C;
+    --subtle-color-1 : #B1E7C9;
+    --subtle-color-2 : #80D7A6;
+
+    --border-color : #DEE2E6;
+    
+    --title-color : #222222;
+    --subtitle-color : #696969;
+    --text-color : #3C3C3C;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'SanomatSans', sans-serif;
+}

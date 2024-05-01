@@ -1,0 +1,157 @@
+
+.page-main {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    background-color: var(--background-color);
+}
+
+.page-navbar {
+    width: var(--navbar-width-1);
+}
+
+.page-content {
+    width: calc(100vw - var(--navbar-width-1));
+    height: 100vh;
+
+    overflow-y: scroll;
+}
+
+/* ====== NAVIGATION BAR ====== */
+.navbar-container {
+    height: 100vh;
+    width: var(--navbar-width-1);
+    /* width: var(--navbar-width-2); */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #fff;
+    padding: 1rem 0px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 20;
+
+    overflow-x: hidden;
+    transition: all 0.5s ease;
+    
+    &:hover {
+        width: var(--navbar-width-2);
+    }
+}
+
+
+/* =================== LOGO =================== */
+.navbar-logo {
+    height: 2rem;
+    width: var(--navbar-width-2);
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0 1.2rem;
+    margin-bottom: 1rem;
+    text-decoration: none;
+    
+    img {
+        height: 100%;
+        object-fit: contain;
+        transition: all 0.4s ease-in-out;
+    }
+    .logo-long {
+        display: none;
+    }
+}
+.navbar-container:hover .navbar-logo {
+    .logo-long {
+        display: block;
+        /* margin-bottom: 2px;
+        margin-left: 1.5px; */
+    }
+    .logo-short {
+        display: none;
+    }
+}
+
+
+/* =================== INFORMATION =================== */
+.navbar-information {
+    width: var(--navbar-width-2);
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0 1.2rem;
+    margin-bottom: 1rem;
+    text-decoration: none;
+    
+    & span {
+        font-size: 1.1rem;
+        font-weight: 500;
+        color: var(--primary-color-1);
+        margin-left: -0.6rem;
+        margin-bottom: 0;
+    }
+}
+
+
+/* =================== BUTTON LIST =================== */
+.navbar-list {
+    height: max-content;
+    width: var(--navbar-width-2);
+
+    display: flex;
+    flex-direction: column;
+    padding: 0 0.6rem;
+
+    a {
+        text-decoration: none;
+        color: var(--primary-color-1);
+    }
+}
+
+.navbar-item {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    padding: 0.6rem 0.85rem;
+    width: 100%;
+    margin: 0.2rem 0;
+    font-weight: 500;
+    font-size: 1rem;
+    background-color: #fff;
+    border: none;
+    border-radius: 8px;
+    color: var(--primary-color-1);
+    text-decoration: none;
+
+
+    &:hover {
+        background-color: var(--subtle-color-1);
+    }
+    &.active {
+        background-color: var(--primary-color-1);
+        color: #fff;
+    }
+    & svg {
+        margin-right: 0.7rem;
+    }
+    & span {
+        opacity: 0;
+        transition: all 0.4s ease-in-out;
+    }
+}
+.navbar-container:hover .navbar-item span {
+    opacity: 1;
+}
+
+/* =================== BOTTOM SECTION =================== */
+.navbar-bottom {
+    width: var(--navbar-width-2);
+    padding: 0 0.6rem;
+    a {
+        text-decoration: none;
+        color: var(--primary-color-1);
+    }
+}

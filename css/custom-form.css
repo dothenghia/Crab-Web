@@ -1,0 +1,25 @@
+
+.my-input {
+    display: block;
+    width: 100%;
+    border: 0.1rem solid var(--border-color);
+    font-size: 1rem;
+    padding: 0.5rem 0.7rem;
+    margin-bottom: 1.3rem;
+    border-radius: 0.325rem;
+    color: var(--text-color);
+    outline: none;
+    transition: border-color 0.3s;
+    
+    &:focus {
+        border-color: var(--primary-color-1);
+        color: var(--primary-color-1);
+    }
+}
+.my-label {
+    display: block;
+    color: var(--text-color);
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}

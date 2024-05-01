@@ -1,4 +1,6 @@
 @import url('./bootstrap/css/bootstrap.min.css');
+@import url('./css/custom-button.css');
+@import url('./css/custom-form.css');
 
 @font-face { font-family: 'SanomatSans'; src: url('./fonts/Sanomat\ SansLight.otf') format('opentype'); font-weight: 300; }
 @font-face { font-family: 'SanomatSans'; src: url('./fonts/Sanomat\ SansRegular.otf') format('opentype'); font-weight: normal; }
@@ -7,11 +9,12 @@
 @font-face { font-family: 'SanomatSans'; src: url('./fonts/Sanomat\ SansXBold.otf') format('opentype'); font-weight: bold; }
 
 :root {
-    --background-color: #f9f9f9;
+    /* ============== COLOR ============== */
+    --background-color: #fff;
 
     --primary-color-1 : #00B14F;
     --primary-color-2 : #00814C;
-    --subtle-color-1 : #B1E7C9;
+    --subtle-color-1 : #dcf0e5;
     --subtle-color-2 : #80D7A6;
 
     --border-color : #DEE2E6;
@@ -19,6 +22,10 @@
     --title-color : #222222;
     --subtitle-color : #878787;
     --text-color : #444444;
+
+    /* ============== SIZE ============== */
+    --navbar-width-1 : 4.4rem;
+    --navbar-width-2 : 16rem;
 }
 
 * {
@@ -26,71 +33,4 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'SanomatSans', sans-serif;
-}
-
-/* ====== General BUTTON styles ====== */
-.my-back-button {
-    width: 32px;
-    height: 32px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    & i {
-        font-size: 2.3rem;
-        color: var(--primary-color-1);
-    }
-}
-.my-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: none;
-    border-radius: 0.325rem;
-    padding: 0.6rem 0.7rem;
-    cursor: pointer;
-
-    font-weight: 500;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.2s;
-}
-.my-primary-button {
-    background-color: var(--primary-color-1);
-    color: #fff;
-    &:hover {
-        background-color: var(--primary-color-2);
-    }
-}
-.my-subtle-button {
-
-}
-.my-outline-button {
-
-}
-
-/* ====== General FORM styles ====== */
-.my-input {
-    display: block;
-    width: 100%;
-    border: 0.1rem solid var(--border-color);
-    font-size: 1rem;
-    padding: 0.5rem 0.7rem;
-    margin-bottom: 1.3rem;
-    border-radius: 0.325rem;
-    color: var(--text-color);
-    outline: none;
-    transition: border-color 0.3s;
-    
-    &:focus {
-        border-color: var(--primary-color-1);
-        color: var(--primary-color-1);
-    }
-}
-.my-label {
-    display: block;
-    color: var(--text-color);
-    font-size: 1.2rem;
-    font-weight: 500;
-    margin-bottom: 0.5rem;
 }

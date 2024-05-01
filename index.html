@@ -13,18 +13,20 @@
 </head>
 
 <body>
-    
     <main id="login-screen">
 
+        <!-- ====== LOGIN ILLUSTRATION ====== -->
         <div class="login-illustration">
             <img src="./assets/login-illustration.png" alt="Illustation">
         </div>
         
+        <!-- ====== LOGIN LOGO ====== -->
         <div class="login-logo">
             <img src="./assets/Logo1.png" alt="Logo">
             <h2>Smart Booking Car System</h2>
         </div>
 
+        <!-- ====== LOGIN FORM ====== -->
         <div class="login-form-container">
             <h1>Log in</h1>
 
@@ -40,9 +42,24 @@
                 <button class="my-button my-primary-button w-100" type="submit" style="margin-top: 3.4rem;">Log in</button>
             </form>
         </div>
-
     </main>
 
+    <script>
+        const loginForm = document.querySelector('.login-form');
+
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const username = document.querySelector('#username').value;
+            const password = document.querySelector('#password').value;
+
+            if (username === 'admin' && password === 'admin') {
+                window.location.href = './screens/admin/dashboard.html';
+            } else {
+                alert('Invalid username or password');
+            }
+        });
+    </script>
 </body>
 
 </html>

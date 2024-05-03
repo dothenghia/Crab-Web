@@ -10,6 +10,9 @@
     <!-- ====== Import CSS files ====== -->
     <link rel="stylesheet" href="./global.css">
     <link rel="stylesheet" href="./screens/app/css/login.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
+    
 </head>
 
 <body>
@@ -44,26 +47,7 @@
         </div>
     </main>
 
-    <script>
-        const loginForm = document.querySelector('.login-form');
-
-        loginForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-
-            const username = document.querySelector('#username').value;
-            const password = document.querySelector('#password').value;
-
-            if (username === 'admin' && password === '123') {
-                window.location.href = './screens/admin/dashboard.html';
-            }
-            else if (username === 'coordinator' && password === '123') {
-                window.location.href = './screens/coordinator/index.html';
-            }
-            else {
-                alert('Invalid username or password');
-            }
-        });
-    </script>
+    <script type="module" src="./index.js"></script>
 </body>
 
 </html>

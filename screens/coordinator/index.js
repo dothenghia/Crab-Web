@@ -1,8 +1,5 @@
 
-
-
-
-
+import searchLocation from '../../services/coordinator/searchLocation.js';
 
 // MapBox Initialization
 var mylongitude = 106.682667;
@@ -33,8 +30,24 @@ const main = {
     },
 
 
-    start: function() {
+    // ====== Handle search location events
+    searchLocationHandler: async function() {
+        document.getElementById('customerStartButton').onclick = async function() {
+            let startLocation = document.getElementById('customerStartInput').value;
+            let locationList = await searchLocation(startLocation);
+            console.log(locationList);
+        }
+        document.getElementById('customerEndButton').onclick = async function() {
+            let endLocation = document.getElementById('customerEndInput').value;
+            let locationList = await searchLocation(endLocation);
+            console.log(locationList);
+        }
+    },
+
+    start: async function() {
         this.init();
+        this.renderHomePage();
+        await this.searchLocationHandler();
     }
 }
 

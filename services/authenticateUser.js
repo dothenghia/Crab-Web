@@ -33,7 +33,7 @@ async function authenticateUser(username, password) {
         }
     }
     catch (error) {
-        console.error('Login : ', error);
+        console.error('Authenticate User : ', error);
         return null;
     }
 }

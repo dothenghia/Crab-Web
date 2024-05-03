@@ -53,9 +53,13 @@
             const username = document.querySelector('#username').value;
             const password = document.querySelector('#password').value;
 
-            if (username === 'admin' && password === 'admin') {
+            if (username === 'admin' && password === '123') {
                 window.location.href = './screens/admin/dashboard.html';
-            } else {
+            }
+            else if (username === 'coordinator' && password === '123') {
+                window.location.href = './screens/coordinator/index.html';
+            }
+            else {
                 alert('Invalid username or password');
             }
         });

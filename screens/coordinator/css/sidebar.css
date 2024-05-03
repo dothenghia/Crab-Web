@@ -1,0 +1,182 @@
+
+.sidebar-container {
+    position: fixed;
+    left: 20px;
+    top: 20px;
+    z-index: 10;
+
+    width: 25rem;
+    height: calc(100% - 20px - 20px);
+    display: flex;
+    flex-direction: column;
+    
+    padding: 20px 12px 18px;
+    border-radius: 14px;
+    background-color: #fefefe;
+    box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.25);
+    
+    animation: movein-from-left 0.8s ease-out;
+    
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+
+    .divider {
+        margin: 14px 10px;
+        border-bottom: 2px solid var(--border-color);
+    }
+}
+.sidebar-container::-webkit-scrollbar {
+    display: none;
+}
+
+/* ====== Sidebar Information ====== */
+.sidebar-information{
+    display: flex;
+    padding: 0 0 0 8px;
+}
+.sidebar-information-icon{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 26px;
+}
+.sidebar-information-inputs {
+    flex: 1;
+    margin: 0 36px 0 10px;
+}
+
+/* ====== Sidebar Location ====== */
+.sidebar-location{
+    display: flex;
+    padding: 0 0 0 8px;
+}
+.sidebar-location-icon{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+
+    .sidebar-location-icon-dot {
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background-color: var(--subtitle-color);
+    }
+}
+.sidebar-location-inputs {
+    flex: 1;
+    margin: 0 4px 0 10px;
+}
+.sidebar-location-search-buttons{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+
+    & button {
+        border: none;
+        padding: 4px 4px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 4px;
+        background-color: white;
+        color: var(--text-color);
+        cursor: pointer;
+        outline: none;
+        transition: all 0.3s ease;
+    }
+    & button:hover {
+        background-color: var(--primary-color-1);
+        color: white;
+    }
+}
+
+/* ====== Location Search Content ====== */
+.sidebar-search-content{
+    & p {
+        margin: 0;
+        font-size: 16px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+}
+.sidebar-search-location{
+    display: flex;
+    align-items: center;
+    padding: 6px 8px;
+    border-radius: 6px;
+    gap: 8px;
+    cursor: pointer;
+    &:hover {
+        background-color: var(--subtle-color-1);
+    }
+}
+.sidebar-search-list{
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 4px;
+}
+.sidebar-search-item{
+    display: flex;
+    align-items: center;
+    padding: 6px 8px 6px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+
+    &:hover {
+        background-color: var(--subtle-color-1);
+    }
+}
+
+/* ====== Vehicles Options ====== */
+.sidebar-vehicle-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+.sidebar-vehicle-item{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 8px;
+    padding: 4px 16px 4px 8px;
+
+    &:hover {
+        background-color: var(--subtle-color-1);
+    }
+    &.active {
+        background-color: var(--subtle-color-2);
+    }
+}
+.item-left{
+    height: 54px;
+    display: flex;
+    align-items: center;
+
+    & img {
+        height: 100%;
+    }
+    & h3 {
+        margin: 0 8px 0 6px;
+        font-weight: 500;
+        font-size: 16px;
+        color: var(--title-color);
+    }
+    & p {
+        margin: 0px;
+        font-size: 14px;
+        color: var(--subtitle-color);
+    }
+}
+.item-right{
+    font-weight: 500;
+    font-size: 16px;
+    color: var(--title-color);
+}

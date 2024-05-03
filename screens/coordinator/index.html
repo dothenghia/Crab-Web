@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coordinator | Crab</title>
+
+    <!-- ====== Bootstrap Icons CSS  ====== -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <!-- ====== MapBox CDN ====== -->
+    <script src='https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.css' rel='stylesheet' />
+
+    <!-- ====== Import CSS files ====== -->
+    <link rel="stylesheet" href="../../global.css">
+    <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="./css/sidebar.css">
+
+</head>
+
+<body>
+
+
+    <div id="root">
+        <div id="main" style="position: relative; z-index: 10;">
+            <div class="sidebar-container">
+                
+                <!-- ====== Customer Information ====== -->
+                <div class="sidebar-information">
+                    <div class="sidebar-information-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-phone"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                    </div>
+
+                    <div class="sidebar-information-inputs">
+                        <input class="my-input mb-1 " type="text" id="CustomerName" placeholder="Enter name..." />
+                        <input class="my-input mb-0" type="text" id="CustomerPhone" placeholder="Enter phone..." />
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+
+                <!-- ====== Customer Location ====== -->
+                <div class="sidebar-location">
+                    <div class="sidebar-location-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#0D6EFD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16Z" stroke="#0D6EFD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        <div class="sidebar-location-icon-dot"></div>
+                        <div class="sidebar-location-icon-dot"></div>
+                        <div class="sidebar-location-icon-dot"></div>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 10C21 17 12 23 12 23C12 23 3 17 3 10C3 7.61305 3.94821 5.32387 5.63604 3.63604C7.32387 1.94821 9.61305 1 12 1C14.3869 1 16.6761 1.94821 18.364 3.63604C20.0518 5.32387 21 7.61305 21 10Z" stroke="#F6432A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 13C13.6569 13 15 11.6569 15 10C15 8.34315 13.6569 7 12 7C10.3431 7 9 8.34315 9 10C9 11.6569 10.3431 13 12 13Z" stroke="#F6432A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+
+                    <div class="sidebar-location-inputs">
+                        <input class="my-input mb-1 " type="search" id="CustomerStart" placeholder="Enter start point..." />
+                        <input class="my-input mb-0" type="search" id="CustomerEnd" placeholder="Enter end point..." />
+                    </div>
+
+                    <div class="sidebar-location-search-buttons">
+                        <button>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        </button>
+                        <button>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+
+                <!-- ====== Location Search Content ====== -->
+                <div class="sidebar-search-content">
+                    <div class="sidebar-search-location">
+                        <svg width="22" height="24" viewBox="0 0 26 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13 3L20 21L13 17.2105L6 21L13 3Z" fill="#0D6EFD" stroke="#0D6EFD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        <p>Choose from map</p>
+                    </div>
+                    <div class="sidebar-search-list">
+                        <div class="sidebar-search-item">
+                            <p>Trường đại học Khoa học Tự nhiên 227 Nguyễn Văn Cừ</p>
+                        </div>
+                        <div class="sidebar-search-item">
+                            <p>Trường đại học Khoa học Tự nhiên 227 Nguyễn Văn Cừ</p>
+                        </div>
+                        <div class="sidebar-search-item">
+                            <p>Trường đại học Khoa học Tự nhiên 227 Nguyễn Văn Cừ</p>
+                        </div>
+                        <div class="sidebar-search-item">
+                            <p>Trường đại học Khoa học Tự nhiên 227 Nguyễn Văn Cừ</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+
+                <!-- ====== Vehicles Options ====== -->
+                <div class="sidebar-vehicle-list">
+                    <div class="sidebar-vehicle-item">
+                        <div class="item-left">
+                            <img src="../../assets/coordinator/bike.png" alt="Bike">
+
+                            <h3>Bike</h3>
+                            <p>1 slot</p>
+                        </div>
+                        <div class="item-right">
+                            50.000đ
+                        </div>
+                    </div>
+                    <div class="sidebar-vehicle-item">
+                        <div class="item-left">
+                            <img src="../../assets/coordinator/grab 4.png" alt="Bike">
+
+                            <h3>Small</h3>
+                            <p>4 slots</p>
+                        </div>
+                        <div class="item-right">
+                            123.000đ
+                        </div>
+                    </div>
+                    <div class="sidebar-vehicle-item active">
+                        <div class="item-left">
+                            <img src="../../assets/coordinator/grab 7.png" alt="Bike">
+
+                            <h3>Medium</h3>
+                            <p>7 slot</p>
+                        </div>
+                        <div class="item-right">
+                            200.000đ
+                        </div>
+                    </div>
+                    <div class="sidebar-vehicle-item">
+                        <div class="item-left">
+                            <img src="../../assets/coordinator/grab 11.png" alt="Bike">
+
+                            <h3>Large</h3>
+                            <p>11 slot</p>
+                        </div>
+                        <div class="item-right">
+                            666.000đ
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ====== Confirm Booking Button ====== -->
+                <div class="flex-grow-1 d-flex align-items-end">
+                    <button class="my-button my-primary-button w-100">Confirm Booking</button>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="map"></div>
+    </div>
+
+    <!-- ====== JavaScript Modules ====== -->
+    <script type="module" src="./index.js"></script>
+
+    <!-- ====== Bootstrap JavaScript ====== -->
+    
+</body>
+
+</html>

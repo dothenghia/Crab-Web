@@ -6,30 +6,29 @@ export default function SearchContentList(locationList, isSettingStartLocation) 
     function ChooseFromMap() {
         if (isSettingStartLocation) {
             let startLocation = document.getElementById('customerStartInput').value;
-            
+
             fetch(`https://nominatim.openstreetmap.org/search?q=${startLocation}&format=json&limit=1`)
-            .then(response => response.json())
-            .then(data => {
-                if (data.length == 0) { alert('Không tìm thấy địa chỉ'); return; }
-                data = data[0];
-                
-                document.getElementById('confirm-start-button').classList.remove('d-none');
-                setStartPickLocation(data.lon, data.lat);
-            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.length == 0) { alert('Không tìm thấy địa chỉ'); return; }
+                    data = data[0];
+
+                    document.getElementById('confirm-start-button').classList.remove('d-none');
+                    setStartPickLocation(data.lon, data.lat);
+                })
         }
         else {
             let endLocation = document.getElementById('customerEndInput').value;
-            
-            fetch(`https://nominatim.openstreetmap.org/search?q=${endLocation}&format=json&limit=1`)
-            .then(response => response.json())
-            .then(data => {
-                if (data.length == 0) { alert('Không tìm thấy địa chỉ'); return; }
-                data = data[0];
-                
-                document.getElementById('confirm-end-button').classList.remove('d-none');
-                setEndPickLocation(data.lon, data.lat);
-            })
 
+            fetch(`https://nominatim.openstreetmap.org/search?q=${endLocation}&format=json&limit=1`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.length == 0) { alert('Không tìm thấy địa chỉ'); return; }
+                    data = data[0];
+
+                    document.getElementById('confirm-end-button').classList.remove('d-none');
+                    setEndPickLocation(data.lon, data.lat);
+                })
         }
     }
     window.ChooseFromMap = ChooseFromMap;
@@ -41,9 +40,15 @@ export default function SearchContentList(locationList, isSettingStartLocation) 
             <p>Choose from map</p>
         </div>
         <div class="sidebar-search-list">
-            ${locationList.map(location => `
-                ${SearchContentItem(location, isSettingStartLocation)}
-            `).join('')}
+            ${
+                locationList.length != 0
+                ?
+                locationList.map(location => `
+                    ${SearchContentItem(location, isSettingStartLocation)}
+                `).join('')
+                :
+                `<p class="text-center">Not found in database system</p>`
+        }
         </div>
     `;
 }
@@ -56,7 +61,7 @@ function SearchContentItem(location, isSettingStartLocation) {
         KinhDo: location.KinhDo,
         ViDo: location.ViDo,
     }
-        
+
     function HandleSearchItem(location) {
         let { IDDiaChi, TenDiaChi, KinhDo, ViDo } = JSON.parse(decodeURIComponent(location));
 

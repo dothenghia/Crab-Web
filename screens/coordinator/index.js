@@ -1,7 +1,10 @@
 
+// ====== Import function services
 import searchLocation from '../../services/coordinator/searchLocation.js';
-import { setStartLocation, setEndLocation, setStartPickLocation, setEndPickLocation } from "../../services/coordinator/setLocation.js";
+import { setStartLocation, setEndLocation } from "../../services/coordinator/setLocation.js";
+import createLocation from '../../services/coordinator/createLocation.js';
 
+// ====== Import UI components
 import SearchContentList from '../../components/coordinator/SearchContentList.js'
 
 // MapBox Initialization
@@ -14,7 +17,7 @@ const main = {
     init: function () {
         window.map = new mapboxgl.Map({
             container: 'map', // container ID
-            style: 'mapbox://styles/mapbox/streets-v12', // style URL
+            style: 'mapbox://styles/mapbox/dark-v11', // style URL
             center: [mylongitude, mylatitude],
             accessToken: mapboxToken,
             zoom: 16
@@ -25,15 +28,6 @@ const main = {
 
         this.isSettingStartLocation = false;
         this.distance = 0;
-    },
-
-
-    // ====== Render các Component và thẻ Root của Trang chủ
-    renderHomePage: function () {
-        // document.getElementById('main').innerHTML = `
-        //     <div class="sidebar-root">
-        //     </div>
-        // `
     },
 
 
@@ -65,7 +59,7 @@ const main = {
             sidebarSearchContent.innerHTML = SearchContentList(locationList, this.isSettingStartLocation);
         }
 
-        document.getElementById('confirm-start-button').onclick = function () {
+        document.getElementById('confirm-start-button').onclick = async function () {
             let newCenter = window.map.getCenter();
             document.getElementById('customerStartInput').setAttribute('data-longitude', newCenter.lng);
             document.getElementById('customerStartInput').setAttribute('data-latitude', newCenter.lat);
@@ -79,10 +73,13 @@ const main = {
                     marker.remove();
                 }
             })
+
+            document.getElementById('customerStartInput').value = await createLocation(startlongitude, startlatitude);
+
             document.getElementById('confirm-start-button').classList.add('d-none');
         }
 
-        document.getElementById('confirm-end-button').onclick = function () {
+        document.getElementById('confirm-end-button').onclick = async function () {
             let newCenter = window.map.getCenter();
             document.getElementById('customerEndInput').setAttribute('data-longitude', newCenter.lng);
             document.getElementById('customerEndInput').setAttribute('data-latitude', newCenter.lat);
@@ -96,6 +93,9 @@ const main = {
                     marker.remove();
                 }
             })
+
+            document.getElementById('customerEndInput').value = await createLocation(endlongitude, endlatitude);
+
             document.getElementById('confirm-end-button').classList.add('d-none');
             document.getElementById('confirm-path-button').classList.remove('d-none')
         }
@@ -123,6 +123,7 @@ const main = {
                 .then(data => {
                     var route = data.routes[0].geometry;
                     var distance = data.routes[0].distance;
+                    console.log(distance);
 
                     window.map.addLayer({
                         id: 'route',
@@ -146,7 +147,6 @@ const main = {
 
     start: async function () {
         this.init();
-        this.renderHomePage();
         await this.searchLocationHandler();
     }
 }

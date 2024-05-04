@@ -1,5 +1,6 @@
 
 import searchLocation from '../../services/coordinator/searchLocation.js';
+import { setStartLocation, setEndLocation, setStartPickLocation, setEndPickLocation } from "../../services/coordinator/setLocation.js";
 
 import SearchContentList from '../../components/coordinator/SearchContentList.js'
 
@@ -23,6 +24,7 @@ const main = {
         )
 
         this.isSettingStartLocation = false;
+        this.distance = 0;
     },
 
 
@@ -44,7 +46,9 @@ const main = {
             let startLocation = document.getElementById('customerStartInput').value;
             let locationList = await searchLocation(startLocation);
 
-            document.getElementById('confirm-path-button').classList.add('invisible');
+            document.getElementById('confirm-path-button').classList.add('d-none');
+            document.getElementById('confirm-start-button').classList.add('d-none');
+            document.getElementById('confirm-end-button').classList.add('d-none');
 
             sidebarSearchContent.innerHTML = SearchContentList(locationList, this.isSettingStartLocation);
         }
@@ -54,8 +58,48 @@ const main = {
             let endLocation = document.getElementById('customerEndInput').value;
             let locationList = await searchLocation(endLocation);
 
+            document.getElementById('confirm-path-button').classList.add('d-none');
+            document.getElementById('confirm-start-button').classList.add('d-none');
+            document.getElementById('confirm-end-button').classList.add('d-none');
+
             sidebarSearchContent.innerHTML = SearchContentList(locationList, this.isSettingStartLocation);
         }
+
+        document.getElementById('confirm-start-button').onclick = function () {
+            let newCenter = window.map.getCenter();
+            document.getElementById('customerStartInput').setAttribute('data-longitude', newCenter.lng);
+            document.getElementById('customerStartInput').setAttribute('data-latitude', newCenter.lat);
+
+            let startlatitude = document.getElementById('customerStartInput').getAttribute('data-latitude');
+            let startlongitude = document.getElementById('customerStartInput').getAttribute('data-longitude');
+            setStartLocation(startlongitude, startlatitude);
+
+            window.map._markers.forEach(marker => {
+                if (marker._element.id == 'search-marker') {
+                    marker.remove();
+                }
+            })
+            document.getElementById('confirm-start-button').classList.add('d-none');
+        }
+
+        document.getElementById('confirm-end-button').onclick = function () {
+            let newCenter = window.map.getCenter();
+            document.getElementById('customerEndInput').setAttribute('data-longitude', newCenter.lng);
+            document.getElementById('customerEndInput').setAttribute('data-latitude', newCenter.lat);
+
+            let endlatitude = document.getElementById('customerEndInput').getAttribute('data-latitude');
+            let endlongitude = document.getElementById('customerEndInput').getAttribute('data-longitude');
+            setEndLocation(endlongitude, endlatitude);
+
+            window.map._markers.forEach(marker => {
+                if (marker._element.id == 'search-marker') {
+                    marker.remove();
+                }
+            })
+            document.getElementById('confirm-end-button').classList.add('d-none');
+            document.getElementById('confirm-path-button').classList.remove('d-none')
+        }
+
 
         document.getElementById('confirm-path-button').onclick = function () {
             let startlatitude = document.getElementById('customerStartInput').getAttribute('data-latitude');
@@ -64,8 +108,6 @@ const main = {
             let endlongitude = document.getElementById('customerEndInput').getAttribute('data-longitude');
 
             var directionsRequest = 'https://api.mapbox.com/directions/v5/mapbox/driving/' + startlongitude + ',' + startlatitude + ';' + endlongitude + ',' + endlatitude + '?steps=true&geometries=geojson&access_token=' + mapboxToken;
-
-            console.log(window.map)
 
             // Xóa đường đi hiện tại (nếu có)
             if (window.map.getLayer('route')) {
@@ -92,7 +134,13 @@ const main = {
                         layout: { 'line-join': 'round', 'line-cap': 'round' },
                         paint: { 'line-color': '#00B14F', 'line-width': 8 }
                     });
+                })
+                .catch(err => {
+                    console.log(err);
                 });
+
+            sidebarSearchContent.innerHTML = '';
+            document.getElementById('confirm-path-button').classList.add('d-none')
         }
     },
 

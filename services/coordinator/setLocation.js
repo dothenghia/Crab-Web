@@ -50,4 +50,64 @@ function setEndLocation(longitude, latitude) {
         .addTo(window.map);
 }
 
-export { setStartLocation, setEndLocation };
+function setStartPickLocation(longitude, latitude) {
+    window.map.flyTo({
+        center: [longitude, latitude],
+        zoom: 17,
+        easing(t) {
+            return t;
+        }
+    });
+
+    const mk = document.createElement('div');
+    mk.className = `marker point-marker`;
+    mk.id = `search-marker`;
+    mk.innerHTML = `<img src="/assets/coordinator/pin.png" alt="search"/>`
+
+    window.map._markers.forEach(marker => {
+        if (marker._element.id == 'search-marker') {
+            marker.remove();
+        }
+    })
+
+    var marker = new mapboxgl.Marker(mk)
+        .setLngLat([longitude, latitude])
+        .addTo(window.map);
+
+    window.map.on('move', (e) => {
+        let newCenter = window.map.getCenter();
+        marker.setLngLat([newCenter.lng, newCenter.lat]);
+    })
+}
+
+function setEndPickLocation(longitude, latitude) {
+    window.map.flyTo({
+        center: [longitude, latitude],
+        zoom: 17,
+        easing(t) {
+            return t;
+        }
+    });
+
+    const mk = document.createElement('div');
+    mk.className = `marker point-marker`;
+    mk.id = `search-marker`;
+    mk.innerHTML = `<img src="/assets/coordinator/pin.png" alt="search"/>`
+
+    window.map._markers.forEach(marker => {
+        if (marker._element.id == 'search-marker') {
+            marker.remove();
+        }
+    })
+
+    var marker = new mapboxgl.Marker(mk)
+        .setLngLat([longitude, latitude])
+        .addTo(window.map);
+
+    window.map.on('move', (e) => {
+        let newCenter = window.map.getCenter();
+        marker.setLngLat([newCenter.lng, newCenter.lat]);
+    })
+}
+
+export { setStartLocation, setEndLocation, setStartPickLocation, setEndPickLocation };

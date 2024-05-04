@@ -1,28 +1,33 @@
 
 import searchLocation from '../../services/coordinator/searchLocation.js';
 
+import SearchContentList from '../../components/coordinator/SearchContentList.js'
+
 // MapBox Initialization
 var mylongitude = 106.682667;
 var mylatitude = 10.762886;
+const mapboxToken = 'pk.eyJ1IjoiYmFyb2xvaSIsImEiOiJjbG8ybW1ucHcwOTZjMnF0ZGFqdXpwemUwIn0._gUBQBWHcx7zDxxK6UEUbQ'
 
 const main = {
     // ====== Hàm Khởi tạo các State
-    init: function() {
-        this.map = new mapboxgl.Map({
+    init: function () {
+        window.map = new mapboxgl.Map({
             container: 'map', // container ID
             style: 'mapbox://styles/mapbox/streets-v12', // style URL
             center: [mylongitude, mylatitude],
-            accessToken: 'pk.eyJ1IjoiYmFyb2xvaSIsImEiOiJjbG8ybW1ucHcwOTZjMnF0ZGFqdXpwemUwIn0._gUBQBWHcx7zDxxK6UEUbQ',
+            accessToken: mapboxToken,
             zoom: 16
         }).addControl(
             new mapboxgl.NavigationControl({ showCompass: true }),
             'bottom-right'
         )
+
+        this.isSettingStartLocation = false;
     },
 
 
     // ====== Render các Component và thẻ Root của Trang chủ
-    renderHomePage: function() {
+    renderHomePage: function () {
         // document.getElementById('main').innerHTML = `
         //     <div class="sidebar-root">
         //     </div>
@@ -31,20 +36,67 @@ const main = {
 
 
     // ====== Handle search location events
-    searchLocationHandler: async function() {
-        document.getElementById('customerStartButton').onclick = async function() {
+    searchLocationHandler: async function () {
+        let sidebarSearchContent = document.getElementById('sidebar-search-content');
+
+        document.getElementById('customerStartButton').onclick = async function () {
+            this.isSettingStartLocation = true;
             let startLocation = document.getElementById('customerStartInput').value;
             let locationList = await searchLocation(startLocation);
-            console.log(locationList);
+
+            document.getElementById('confirm-path-button').classList.add('invisible');
+
+            sidebarSearchContent.innerHTML = SearchContentList(locationList, this.isSettingStartLocation);
         }
-        document.getElementById('customerEndButton').onclick = async function() {
+
+        document.getElementById('customerEndButton').onclick = async function () {
+            this.isSettingStartLocation = false;
             let endLocation = document.getElementById('customerEndInput').value;
             let locationList = await searchLocation(endLocation);
-            console.log(locationList);
+
+            sidebarSearchContent.innerHTML = SearchContentList(locationList, this.isSettingStartLocation);
+        }
+
+        document.getElementById('confirm-path-button').onclick = function () {
+            let startlatitude = document.getElementById('customerStartInput').getAttribute('data-latitude');
+            let startlongitude = document.getElementById('customerStartInput').getAttribute('data-longitude');
+            let endlatitude = document.getElementById('customerEndInput').getAttribute('data-latitude');
+            let endlongitude = document.getElementById('customerEndInput').getAttribute('data-longitude');
+
+            var directionsRequest = 'https://api.mapbox.com/directions/v5/mapbox/driving/' + startlongitude + ',' + startlatitude + ';' + endlongitude + ',' + endlatitude + '?steps=true&geometries=geojson&access_token=' + mapboxToken;
+
+            console.log(window.map)
+
+            // Xóa đường đi hiện tại (nếu có)
+            if (window.map.getLayer('route')) {
+                window.map.removeLayer('route');
+            }
+            if (window.map.getSource('route')) {
+                window.map.removeSource('route');
+            }
+
+            // Vẽ đường đi trên bản đồ
+            fetch(directionsRequest)
+                .then(response => response.json())
+                .then(data => {
+                    var route = data.routes[0].geometry;
+                    var distance = data.routes[0].distance;
+
+                    window.map.addLayer({
+                        id: 'route',
+                        type: 'line',
+                        source: {
+                            type: 'geojson',
+                            data: { type: 'Feature', geometry: route }
+                        },
+                        layout: { 'line-join': 'round', 'line-cap': 'round' },
+                        paint: { 'line-color': '#00B14F', 'line-width': 8 }
+                    });
+                });
         }
     },
 
-    start: async function() {
+    start: async function () {
         this.init();
         this.renderHomePage();
         await this.searchLocationHandler();

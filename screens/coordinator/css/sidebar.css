@@ -1,4 +1,8 @@
 
+* {
+    font-family: 'NotoSans', sans-serif;
+}
+
 .sidebar-container {
     position: fixed;
     left: 20px;
@@ -6,7 +10,8 @@
     z-index: 10;
 
     width: 25rem;
-    height: calc(100% - 20px - 20px);
+    max-height: calc(100% - 20px - 20px);
+    height: 100%;
     display: flex;
     flex-direction: column;
     
@@ -98,6 +103,11 @@
 
 /* ====== Location Search Content ====== */
 .sidebar-search-content{
+    /* flex: 1; */
+    margin-top: 8px;
+    max-height: max-content;
+    overflow-y: auto;
+
     & p {
         margin: 0;
         font-size: 16px;

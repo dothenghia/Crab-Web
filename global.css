@@ -8,6 +8,11 @@
 @font-face { font-family: 'SanomatSans'; src: url('./fonts/Sanomat\ SansBold.otf') format('opentype'); font-weight: 700; }
 @font-face { font-family: 'SanomatSans'; src: url('./fonts/Sanomat\ SansXBold.otf') format('opentype'); font-weight: bold; }
 
+@font-face {
+    font-family: 'NotoSans';
+    src: url('./fonts/NotoSans.ttf') format('truetype');
+}
+
 :root {
     /* ============== COLOR ============== */
     --background-color: #fff;

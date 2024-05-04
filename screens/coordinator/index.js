@@ -3,9 +3,12 @@
 import searchLocation from '../../services/coordinator/searchLocation.js';
 import { setStartLocation, setEndLocation } from "../../services/coordinator/setLocation.js";
 import createLocation from '../../services/coordinator/createLocation.js';
+import createBooking from '../../services/coordinator/createBooking.js';
 
 // ====== Import UI components
 import SearchContentList from '../../components/coordinator/SearchContentList.js'
+import VehicleContentList from '../../components/coordinator/VehicleContentList.js'
+import getVehicles from '../../services/coordinator/getVehicles.js';
 
 // MapBox Initialization
 var mylongitude = 106.682667;
@@ -14,7 +17,7 @@ const mapboxToken = 'pk.eyJ1IjoiYmFyb2xvaSIsImEiOiJjbG8ybW1ucHcwOTZjMnF0ZGFqdXpw
 
 const main = {
     // ====== Hàm Khởi tạo các State
-    init: function () {
+    init: async function () {
         window.map = new mapboxgl.Map({
             container: 'map', // container ID
             style: 'mapbox://styles/mapbox/dark-v11', // style URL
@@ -27,7 +30,7 @@ const main = {
         )
 
         this.isSettingStartLocation = false;
-        this.distance = 0;
+        this.vehicleList = await getVehicles();
     },
 
 
@@ -36,7 +39,7 @@ const main = {
         let sidebarSearchContent = document.getElementById('sidebar-search-content');
 
         document.getElementById('customerStartButton').onclick = async function () {
-            this.isSettingStartLocation = true;
+            main.isSettingStartLocation = true;
             let startLocation = document.getElementById('customerStartInput').value;
             let locationList = await searchLocation(startLocation);
 
@@ -44,11 +47,11 @@ const main = {
             document.getElementById('confirm-start-button').classList.add('d-none');
             document.getElementById('confirm-end-button').classList.add('d-none');
 
-            sidebarSearchContent.innerHTML = SearchContentList(locationList, this.isSettingStartLocation);
+            sidebarSearchContent.innerHTML = SearchContentList(locationList, main.isSettingStartLocation);
         }
 
         document.getElementById('customerEndButton').onclick = async function () {
-            this.isSettingStartLocation = false;
+            main.isSettingStartLocation = false;
             let endLocation = document.getElementById('customerEndInput').value;
             let locationList = await searchLocation(endLocation);
 
@@ -56,7 +59,7 @@ const main = {
             document.getElementById('confirm-start-button').classList.add('d-none');
             document.getElementById('confirm-end-button').classList.add('d-none');
 
-            sidebarSearchContent.innerHTML = SearchContentList(locationList, this.isSettingStartLocation);
+            sidebarSearchContent.innerHTML = SearchContentList(locationList, main.isSettingStartLocation);
         }
 
         document.getElementById('confirm-start-button').onclick = async function () {
@@ -74,7 +77,9 @@ const main = {
                 }
             })
 
-            document.getElementById('customerStartInput').value = await createLocation(startlongitude, startlatitude);
+            let { TenDC, IDDc } = await createLocation(startlongitude, startlatitude);
+            document.getElementById('customerStartInput').value = TenDC;
+            document.getElementById('customerStartInput').setAttribute('data-idlocation', IDDc);
 
             document.getElementById('confirm-start-button').classList.add('d-none');
         }
@@ -94,7 +99,9 @@ const main = {
                 }
             })
 
-            document.getElementById('customerEndInput').value = await createLocation(endlongitude, endlatitude);
+            let { TenDC, IDDc } = await createLocation(endlongitude, endlatitude);
+            document.getElementById('customerEndInput').value = TenDC;
+            document.getElementById('customerEndInput').setAttribute('data-idlocation', IDDc);
 
             document.getElementById('confirm-end-button').classList.add('d-none');
             document.getElementById('confirm-path-button').classList.remove('d-none')
@@ -123,7 +130,11 @@ const main = {
                 .then(data => {
                     var route = data.routes[0].geometry;
                     var distance = data.routes[0].distance;
-                    console.log(distance);
+                    document.getElementById('confirm-booking-button').setAttribute('data-distance', distance);
+                    
+                    sidebarSearchContent.innerHTML = '';
+                    document.getElementById('confirm-path-button').classList.add('d-none');
+                    document.getElementById("sidebar-vehicle-list").innerHTML = VehicleContentList(main.vehicleList);
 
                     window.map.addLayer({
                         id: 'route',
@@ -140,14 +151,27 @@ const main = {
                     console.log(err);
                 });
 
-            sidebarSearchContent.innerHTML = '';
-            document.getElementById('confirm-path-button').classList.add('d-none')
+            
+        }
+    },
+
+    // ====== Handle booking vehicle events
+    bookingVehicleHandler: async function () {
+        document.getElementById('confirm-booking-button').onclick = async function () {
+            await createBooking();
+            document.getElementById('customerNameInput').value = '';
+            document.getElementById('customerPhoneInput').value = '';
+            document.getElementById('customerStartInput').value = '';
+            document.getElementById('customerEndInput').value = '';
+            document.getElementById('sidebar-vehicle-list').innerHTML = '';
+            document.getElementById('confirm-booking-button').classList.add('d-none');
         }
     },
 
     start: async function () {
-        this.init();
+        await this.init();
         await this.searchLocationHandler();
+        await this.bookingVehicleHandler();
     }
 }
 

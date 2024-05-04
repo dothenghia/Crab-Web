@@ -69,12 +69,14 @@ function SearchContentItem(location, isSettingStartLocation) {
             document.getElementById('customerStartInput').value = TenDiaChi;
             document.getElementById('customerStartInput').setAttribute('data-longitude', KinhDo);
             document.getElementById('customerStartInput').setAttribute('data-latitude', ViDo);
+            document.getElementById('customerStartInput').setAttribute('data-idlocation', IDDiaChi);
             setStartLocation(KinhDo, ViDo);
         }
         else {
             document.getElementById('customerEndInput').value = TenDiaChi;
             document.getElementById('customerEndInput').setAttribute('data-longitude', KinhDo);
             document.getElementById('customerEndInput').setAttribute('data-latitude', ViDo);
+            document.getElementById('customerEndInput').setAttribute('data-idlocation', IDDiaChi);
             setEndLocation(KinhDo, ViDo);
 
             document.getElementById('confirm-path-button').classList.remove('d-none')

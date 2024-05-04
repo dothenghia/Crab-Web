@@ -26,7 +26,7 @@ async function createLocation(longitude, latitude) {
             TenDiaChiArray: TenDiaChiArray
         });
 
-        return TenDiaChi;
+        return { TenDiaChi , IDDiaChi };
     }
     catch (error) {
         console.error('Update Location : ', error);

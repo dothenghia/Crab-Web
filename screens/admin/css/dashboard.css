@@ -1,0 +1,19 @@
+
+.dashboard-container {
+    padding: 3rem 5rem;
+
+    & h1 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+}
+.statistic-container {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 2rem;
+    height: 34rem;
+
+    & img {
+        height: 100%;
+    }
+}

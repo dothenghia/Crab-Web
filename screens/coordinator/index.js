@@ -20,7 +20,7 @@ const main = {
     init: async function () {
         window.map = new mapboxgl.Map({
             container: 'map', // container ID
-            style: 'mapbox://styles/mapbox/dark-v11', // style URL
+            style: 'mapbox://styles/mapbox/streets-v12', // style URL
             center: [mylongitude, mylatitude],
             accessToken: mapboxToken,
             zoom: 16

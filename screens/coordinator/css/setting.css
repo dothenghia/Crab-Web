@@ -1,0 +1,11 @@
+
+.setting-container {
+    & h1 {
+        padding: 3rem 5rem 0 5rem;
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+    & form {
+        padding: 0 25rem;
+    }
+}

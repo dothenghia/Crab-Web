@@ -1,0 +1,25 @@
+
+.side-button-wrapper{
+    z-index: 100;
+    position: absolute;
+    bottom: 120px;
+    right: 12px;;
+}
+.side-button{
+    color: var(--primary-color-1);
+    background-color: white;
+    padding: 10px;
+    margin: 10px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+    transition: all 0.3s;
+    &:hover{
+        background-color: var(--primary-color-1);
+        color: white;
+    }
+}

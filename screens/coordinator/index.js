@@ -165,6 +165,26 @@ const main = {
             document.getElementById('customerEndInput').value = '';
             document.getElementById('sidebar-vehicle-list').innerHTML = '';
             document.getElementById('confirm-booking-button').classList.add('d-none');
+            document.getElementById('confirm-start-button').classList.add('d-none');
+            document.getElementById('confirm-end-button').classList.add('d-none');
+            document.getElementById('confirm-path-button').classList.add('d-none');
+            if (window.map.getLayer('route')) {
+                window.map.removeLayer('route');
+            }
+            if (window.map.getSource('route')) {
+                window.map.removeSource('route');
+            }
+            window.map._markers.forEach(marker => {
+                if (marker._element.id == 'search-marker') {
+                    marker.remove();
+                }
+                else if (marker._element.id == 'start-marker') {
+                    marker.remove();
+                }
+                else if (marker._element.id == 'end-marker') {
+                    marker.remove();
+                }
+            })
         }
     },
 

@@ -1,16 +1,26 @@
 
 import { db } from "../firebase.js";
-import { collection, addDoc } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
+import { collection, addDoc, doc, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
 import generateId from "./generateId.js";
 
 async function createBooking() {
     try {
+        let IDKhachVangLai = generateId();
+        let HoTen = document.getElementById('customerNameInput').value;
+        let SDT = document.getElementById('customerPhoneInput').value;
+
+        const khachHangRef = await addDoc(collection(db, "KhachVangLai"), {
+            IDKhachVangLai,
+            HoTen,
+            SDT
+        });
+
+
         let IDChuyenXe = generateId();
         let IDDiaChiDon = document.getElementById('customerStartInput').getAttribute('data-idlocation');
         let IDDiaChiDen = document.getElementById('customerEndInput').getAttribute('data-idlocation');
         let HinhThucDatXe = "tongdai";
         let IDKhachHang = "";
-        let IDKhachVangLai = generateId();
         let IDTaiXe = "";
         let IDLoaiXe = document.getElementById('confirm-booking-button').getAttribute('data-idloaixe');
         let GiaTien = document.getElementById('confirm-booking-button').getAttribute('data-gia');
@@ -19,10 +29,24 @@ async function createBooking() {
         let ThoiDiemBatDau = ""
         let ThoiDiemKetThuc = ""
 
-        // console.log('IDDiaChiDon:', IDDiaChiDon);
-        // console.log('IDDiaChiDen:', IDDiaChiDen);
-        // console.log('IDLoaiXe:', IDLoaiXe);
-        // console.log('GiaTien:', GiaTien);
+        const diaChiDonQuery = query(collection(db, "DiaChi"), where("IDDiaChi", "==", IDDiaChiDon));
+        const diaChiDonSnapshot = await getDocs(diaChiDonQuery);
+        let DiaChiDonId = "";
+        diaChiDonSnapshot.forEach((doc) => {
+            DiaChiDonId = doc.id;
+        });
+        let DiaChiDon = doc(db, "DiaChi", DiaChiDonId);
+
+        const diaChiDenQuery = query(collection(db, "DiaChi"), where("IDDiaChi", "==", IDDiaChiDen));
+        const diaChiDenSnapshot = await getDocs(diaChiDenQuery);
+        let DiaChiDenId = "";
+        diaChiDenSnapshot.forEach((doc) => {
+            DiaChiDenId = doc.id;
+        });
+        let DiaChiDen = doc(db, "DiaChi", DiaChiDenId);
+
+
+        let KhachHang = khachHangRef
 
         const chuyenXeRef = await addDoc(collection(db, "ChuyenXe"), {
             IDChuyenXe,
@@ -36,16 +60,10 @@ async function createBooking() {
             GiaTien,
             IDTongDai,
             ThoiDiemBatDau,
-            ThoiDiemKetThuc
-        });
-
-        let HoTen = document.getElementById('customerNameInput').value;
-        let SDT = document.getElementById('customerPhoneInput').value;
-
-        const khachHangRef = await addDoc(collection(db, "KhachVangLai"), {
-            IDKhachVangLai,
-            HoTen,
-            SDT
+            ThoiDiemKetThuc,
+            DiaChiDon,
+            DiaChiDen,
+            KhachHang
         });
 
         alert("Đặt xe thành công");

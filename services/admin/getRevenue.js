@@ -10,7 +10,10 @@ async function getRevenue() {
 
         const results = [];
         querySnapshot.forEach((doc) => {
-            results.push(doc.data());
+            const data = doc.data();
+            // Lấy ID của document và thêm vào field ID
+            const id = doc.id;
+            results.push({ ...data, ID: id });
         });
 
         results.sort((a, b) => a.IDChuyenXe - b.IDChuyenXe);

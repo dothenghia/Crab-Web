@@ -31,7 +31,7 @@ function renderRevenueRow(revenue, index) {
     return `
         <tr>
             <td>${index + 1}</td>
-            <td>${revenue.IDChuyenXe}</td>
+            <td>${revenue.ID}</td>
             <td>${revenue.HinhThucDatXe}</td>
             <td>${vehicleMapping[revenue.IDLoaiXe]}</td>
             <td>${revenue.GiaTien}đ</td>

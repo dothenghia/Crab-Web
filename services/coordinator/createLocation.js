@@ -14,7 +14,7 @@ async function createLocation(longitude, latitude) {
         let ViDo = parseFloat(latitude);
         let TenDiaChiArray = TenDiaChi.toLowerCase().split(', ').flatMap(word => word.split(' '));
 
-        console.log('TenDiaChi:', TenDiaChi);
+        // console.log('TenDiaChi:', TenDiaChi);
 
         // Upload dữ liệu vào collection DiaChi
         const diaChiRef = collection(db, "DiaChi");

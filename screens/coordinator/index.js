@@ -77,9 +77,13 @@ const main = {
                 }
             })
 
-            let { TenDC, IDDc } = await createLocation(startlongitude, startlatitude);
-            document.getElementById('customerStartInput').value = TenDC;
-            document.getElementById('customerStartInput').setAttribute('data-idlocation', IDDc);
+            createLocation(startlongitude, startlatitude)
+                .then(({ TenDiaChi , IDDiaChi }) => {
+                    console.log('TenDC:', TenDiaChi);
+                    console.log('IDDc:', IDDiaChi);
+                    document.getElementById('customerStartInput').value = TenDiaChi;
+                    document.getElementById('customerStartInput').setAttribute('data-idlocation', IDDiaChi);
+                })
 
             document.getElementById('confirm-start-button').classList.add('d-none');
         }
@@ -99,9 +103,9 @@ const main = {
                 }
             })
 
-            let { TenDC, IDDc } = await createLocation(endlongitude, endlatitude);
-            document.getElementById('customerEndInput').value = TenDC;
-            document.getElementById('customerEndInput').setAttribute('data-idlocation', IDDc);
+            let { TenDiaChi , IDDiaChi } = await createLocation(endlongitude, endlatitude);
+            document.getElementById('customerEndInput').value = TenDiaChi;
+            document.getElementById('customerEndInput').setAttribute('data-idlocation', IDDiaChi);
 
             document.getElementById('confirm-end-button').classList.add('d-none');
             document.getElementById('confirm-path-button').classList.remove('d-none')

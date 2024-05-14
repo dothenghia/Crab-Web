@@ -31,3 +31,7 @@
 #my-table {
     margin-top: 2rem;
 }
+
+.left-td {
+    text-align: left;
+}

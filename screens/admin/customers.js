@@ -24,7 +24,7 @@ function renderRow(item, index) {
     return `
         <tr>
             <td>${index + 1}</td>
-            <td>${item.IDKhachVangLai}</td>
+            <td>${item.ID}</td>
             <td>${item.HoTen}</td>
             <td>${item.SDT}</td>
             <td>${item.Loai}</td>

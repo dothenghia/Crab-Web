@@ -34,7 +34,7 @@ function renderRevenueRow(revenue, index) {
             <td>${revenue.ID}</td>
             <td>${revenue.HinhThucDatXe}</td>
             <td>${vehicleMapping[revenue.IDLoaiXe]}</td>
-            <td>${revenue.GiaTien}đ</td>
+            <td>${revenue.GiaTien.toLocaleString('vi-VN')}đ</td>
         </tr>
     `
 }

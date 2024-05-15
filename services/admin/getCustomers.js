@@ -5,28 +5,21 @@ import { collection, getDocs } from "https://www.gstatic.com/firebasejs/10.11.1/
 async function getCustomers() {
     try {
         const customerCollection = collection(db, "KhachVangLai");
+        const customerCollection2 = collection(db, "KhachHang");
 
         const querySnapshot = await getDocs(customerCollection);
+        const querySnapshot2 = await getDocs(customerCollection2);
 
         const results = [];
-        results.push(
-            {
-                IDKhachVangLai: '1',
-                HoTen: 'Thế Nghĩa Đỗ',
-                SDT: '0906050403',
-                Loai: 'Thành viên'
-            },
-            {
-                IDKhachVangLai: '2',
-                HoTen: 'Hanh Nhi',
-                SDT: '0908123456',
-                Loai: 'Thành viên'
-            }
-        )
+
+        querySnapshot2.forEach((doc) => {
+            const data = doc.data();
+            results.push({ ...data, ID: data.IDKhachHang, Loai: 'Thành viên' });
+        });
 
         querySnapshot.forEach((doc) => {
             const data = doc.data();
-            results.push({ ...data, Loai: 'Vãng lai' });
+            results.push({ ...data, ID: data.IDKhachVangLai, Loai: 'Vãng lai' });
         });
 
         return results;

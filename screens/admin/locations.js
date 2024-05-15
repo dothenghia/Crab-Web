@@ -24,8 +24,8 @@ function renderRow(item, index) {
         <tr>
             <td>${index + 1}</td>
             <td class='left-td'>${item.TenDiaChi}</td>
-            <td>${item.KinhDo}</td>
-            <td>${item.ViDo}</td>
+            <td>${item.KinhDo.toFixed(6)}</td>
+            <td>${item.ViDo.toFixed(6)}</td>
         </tr>
     `
 }

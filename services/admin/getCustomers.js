@@ -14,12 +14,14 @@ async function getCustomers() {
 
         querySnapshot2.forEach((doc) => {
             const data = doc.data();
-            results.push({ ...data, ID: data.IDKhachHang, Loai: 'Thành viên' });
+            const id = doc.id;
+            results.push({ ...data, ID: id, Loai: 'Thành viên' });
         });
 
         querySnapshot.forEach((doc) => {
             const data = doc.data();
-            results.push({ ...data, ID: data.IDKhachVangLai, Loai: 'Vãng lai' });
+            const id = doc.id;
+            results.push({ ...data, ID: id, Loai: 'Vãng lai' });
         });
 
         return results;
